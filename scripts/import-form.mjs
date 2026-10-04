@@ -53,10 +53,13 @@ if (!csvPath) {
 const [header, ...rows] = parseCsv(fs.readFileSync(csvPath, 'utf8').replace(/^\uFEFF/, ''));
 const col = {};
 for (const [key, re] of Object.entries(COLUMNS)) {
+  if (key === 'mesaj') continue;
   const idx = header.findIndex((h) => re.test(h.trim()));
   if (idx !== -1 && !Object.values(col).includes(idx)) col[key] = idx;
 }
-for (const need of ['rumuz', 'il', 'mesaj']) {
+// Formda commit mesajı ve öğrencinin ilk satırı ayrı sorulardır; dolu olan kullanılır.
+const messageCols = header.map((h, i) => (COLUMNS.mesaj.test(h.trim()) ? i : -1)).filter((i) => i !== -1);
+for (const need of ['rumuz', 'il']) {
   if (col[need] === undefined) {
     console.error(`CSV başlıklarında "${need}" sütunu bulunamadı. Başlıklar: ${header.join(' | ')}`);
     process.exit(1);
@@ -70,7 +73,8 @@ let written = 0, skipped = 0, rejected = 0;
 for (const r of rows) {
   const get = (k) => (col[k] === undefined ? '' : (r[col[k]] ?? '').trim());
   if (col.onay !== undefined && !get('onay')) { rejected++; console.log(`- Onaysız yanıt atlandı: ${get('rumuz')}`); continue; }
-  const entry = { rumuz: get('rumuz'), il: get('il'), mesaj: get('mesaj'), tur: TYPE(get('tur')) };
+  const mesaj = messageCols.map((i) => (r[i] ?? '').trim()).find(Boolean) ?? '';
+  const entry = { rumuz: get('rumuz'), il: get('il'), mesaj, tur: TYPE(get('tur')) };
   if (entry.tur === 'ders') entry.ogrenciGrubu = GROUP(get('ogrenciGrubu'));
 
   const id = crypto.createHash('sha1').update(`${get('zaman')}|${entry.rumuz}|${entry.mesaj}`).digest('hex').slice(0, 10);

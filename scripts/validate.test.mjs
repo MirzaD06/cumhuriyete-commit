@@ -69,6 +69,19 @@ test('issue formu gövdesi ayrıştırılır', () => {
   assert.equal(consentOk, true);
 });
 
+test('Google Form köprüsünün ürettiği gövde ayrıştırılır', () => {
+  const body = [
+    '### Rumuz\n\nayse',
+    '### İl\n\nKars',
+    '### Commit mesajı\n\nfeat: kardeşime Python öğreteceğim',
+    '### Onay\n\n- [X] Rumuzum...\n- [X] Mesajım...',
+    '_Google Form üzerinden gönderildi._',
+  ].join('\n\n');
+  const { entry, consentOk } = parseIssueBody(body);
+  assert.deepEqual(entry, { rumuz: 'ayse', il: 'Kars', mesaj: 'feat: kardeşime Python öğreteceğim' });
+  assert.equal(consentOk, true);
+});
+
 test('işaretlenmemiş onay kutusu yakalanır', () => {
   const { consentOk } = parseIssueBody('### Rumuz\n\nx\n\n### Onay\n\n- [X] a\n- [ ] b');
   assert.equal(consentOk, false);

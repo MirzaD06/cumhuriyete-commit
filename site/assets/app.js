@@ -354,7 +354,6 @@ function wireLinks() {
   };
   setLink('link-issue-commit', `${repoUrl}/issues/new?template=1-commit.yml`);
   setLink('link-issue-ders', `${repoUrl}/issues/new?template=2-ders.yml`);
-  setLink('link-repo', repoUrl);
   setLink('link-star', repoUrl);
   setLink('link-form', CONFIG.formUrl);
   setLink('link-kit', CONFIG.dersKitiUrl);

@@ -118,7 +118,7 @@ main > section { padding: clamp(2.5rem, 6vw, 5rem) clamp(1rem, 4vw, 3rem); max-w
 h2 { font-size: clamp(1.6rem, 3.5vw, 2.25rem); margin: 0 0 .5rem; letter-spacing: -.01em; }
 .section-lead { color: var(--muted); margin: 0 0 1.75rem; max-width: 720px; }
 
-.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem; }
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem; max-width: 860px; }
 .card { display: flex; flex-direction: column; gap: .5rem; padding: 1.5rem; border: 1px solid var(--line); border-radius: 12px; background: var(--bg-2); }
 .card h3 { margin: 0; font-size: 1.25rem; }
 .card p { margin: 0; color: #c9d1d9; }

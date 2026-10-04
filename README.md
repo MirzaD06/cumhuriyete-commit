@@ -13,18 +13,8 @@
 
 ## Katılım
 
-1. **Commit formu (GitHub hesabıyla, kod gerekmez):** Issues → *Cumhuriyet'e commit'imi at*.
-2. **Pull request:** `commits/` klasörüne GitHub kullanıcı adınla tek bir dosya ekle:
-   ```json
-   {
-     "rumuz": "genc_gelistirici",
-     "il": "Ankara",
-     "mesaj": "feat: köyümdeki okula kodlama kulübü",
-     "tur": "commit"
-   }
-   ```
-   Ders bildirimi için `"tur": "ders"`, `"mesaj"` öğrencinin ilk satırı ve `"ogrenciGrubu": "cocuk" | "yetiskin" | "65+"`.
-3. **Google Form (hesapsız):** Kampanya sayfasındaki bağlantı. Yanıtlar moderatörlerce içe aktarılır.
+1. **GitHub formu (GitHub hesabıyla, kod gerekmez):** Issues → *Cumhuriyet'e commit'imi at* veya *Millet Mektebi 2.0 dersimi bildir*.
+2. **Google Form (hesapsız):** Kampanya sayfasındaki bağlantı. Her yanıt otomatik olarak aynı biçimde bir issue'ya dönüşür.
 
 Kurallar: mesaj tek satır ve en fazla 72 karakter; bağlantı, @etiket, e-posta, telefon ve kişisel veri yok; kampanya partiler üstüdür.
 
@@ -35,15 +25,11 @@ Kurallar: mesaj tek satır ve en fazla 72 karakter; bağlantı, @etiket, e-posta
 - İçeriği okuyup uygunsa **`onaylandi`** etiketini ekle. Bot dosyayı `commits/issue-<no>.json` olarak yazar, issue'yu kapatır ve siteyi yeniden yayınlar.
 - `hassas-icerik` etiketli katkıları yalnızca siyasi çağrı içermediğinden eminsen onayla.
 
-**Pull request ile gelen katkılar**
-- *PR katkı kontrolü* geçmeden birleştirme. Özet sekmesindeki raporu oku.
-- PR yalnızca `commits/` altında tek bir dosya eklemeli. Başka dosyaya dokunan katkı PR'larını birleştirme.
-
 **Google Form yanıtları**
-```bash
-node scripts/import-form.mjs yanitlar.csv   # commits/form-*.json üretir, filtreye takılanları listeler
-```
-Oluşan dosyaları okuyup bir PR ile ekle.
+- Her yanıt `(form)` başlıklı bir issue olarak gelir; diğer issue'lar gibi onaylanır.
+- GitHub köprüsü çalışmazsa yedek yol: yanıt tablosunu CSV olarak indir, `node scripts/import-form.mjs yanitlar.csv` ile `commits/form-*.json` dosyalarını üret, okuyup main'e gönder.
+
+**Pull request'ler:** Katılım yolu olarak sunulmuyor; yine de açılan her PR *PR katkı kontrolü*nden geçer. `commits/` dışına dokunan PR'ları birleştirme.
 
 **Kaldırma talebi:** İlgili dosyayı `commits/` klasöründen silip main'e gönder; site birkaç dakika içinde güncellenir.
 
@@ -61,7 +47,7 @@ npm run serve        # http://localhost:8023
 - `?demo=1200` — 1.200 sahte katkıyla mozaiği gösterir.
 - `?final=prova` — finali 10 saniye sonra başlatır (canlı yayın provası için).
 
-Ayarlar `site/assets/config.js` içinde: repo adı, final saati, Google Form, ders kiti ve canlı yayın bağlantıları. İl listesi değişirse `npm run templates` ile issue formlarını yeniden üret.
+Google Form kurulumu `form/google-form.gs` dosyasının başında anlatılıyor. Ayarlar `site/assets/config.js` içinde: repo adı, final saati, Google Form, ders kiti ve canlı yayın bağlantıları. İl listesi değişirse `npm run templates` ile issue formlarını yeniden üret.
 
 ## Kurulum (bir kez)
 
