@@ -5,7 +5,7 @@ export const CONFIG = {
   finalDuration: 23,
   goals: { commits: 1670, lessons: 150, provinces: 25 },
   // Boş bırakılan bağlantılar sayfada "yakında" olarak görünür.
-  formUrl: '',
+  formUrl: 'https://forms.gle/yErk3pun1tgzzmhE9',
   dersKitiUrl: '',
   liveUrl: '',
 };
