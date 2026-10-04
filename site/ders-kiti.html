@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Millet Mektebi 2.0 Ders Kiti — Cumhuriyet'e Commit</title>
+  <meta name="description" content="Kodlamayla hiç tanışmamış birine bir saatlik ilk ders: ders planı, gönüllü rehberi ve rıza formları.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3Crect width='3' height='2' fill='%23E30A17'/%3E%3Ccircle cx='1' cy='1' r='.5' fill='%23fff'/%3E%3Ccircle cx='1.12' cy='1' r='.4' fill='%23E30A17'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="assets/ders-kiti.css">
+</head>
+<body>
+  <div class="toolbar no-print">
+    <a href="./">← Kampanya sayfası</a>
+    <a href="ilk-satir.html">Alıştırma sayfası</a>
+    <button type="button" onclick="window.print()">Yazdır / PDF olarak kaydet</button>
+  </div>
+
+  <main class="kit">
+    <header class="cover">
+      <p class="kicker">#CumhuriyeteCommit · Millet Mektebi 2.0</p>
+      <h1>Ders Kiti</h1>
+      <p class="subtitle">Kodlamayla hiç tanışmamış birine bir saatlik ilk ders</p>
+      <blockquote>“Her vatandaşa, kadına, erkeğe, hamala, sandalcıya öğretiniz.”<cite>Mustafa Kemal Atatürk, 1928</cite></blockquote>
+      <nav class="toc no-print" aria-label="İçindekiler">
+        <a href="#hazirlik">1. Hazırlık</a>
+        <a href="#plan">2. Ders planı</a>
+        <a href="#gruplar">3. Öğrenciye göre ipuçları</a>
+        <a href="#rehber">4. Gönüllü rehberi</a>
+        <a href="#bildir">5. Dersi bildirme</a>
+        <a href="#ek-a">Ek A. Yetişkin onay metni</a>
+        <a href="#ek-b">Ek B. Veli izin formu</a>
+      </nav>
+    </header>
+
+    <section id="hazirlik">
+      <h2>1. Hazırlık</h2>
+      <p>1929'da Millet Mektepleri'nde milyonlarca yetişkin yeni harflerle okumayı öğrendi. Millet Mektebi 2.0'da sen gönüllü öğretmensin: kodlamayla hiç tanışmamış birine — annene, dedene, komşuna, bir öğrenciye — bilgisayara ilk komutunu verdireceksin. Amaç programcı yetiştirmek değil; "ben de yapabilirim" duygusunu yaşatmak.</p>
+      <h3>Kontrol listesi</h3>
+      <ul class="checklist">
+        <li>İnternete bağlı bir bilgisayar, tablet ya da telefon. Kurulum gerekmez.</li>
+        <li>Alıştırma sayfası açık ve hazır: <strong>mirzad06.github.io/cumhuriyete-commit/ilk-satir.html</strong></li>
+        <li>Sessiz bir ortam ve kesintisiz bir saat.</li>
+        <li>Rıza: yetişkin öğrenci için Ek A, çocuk için Ek B (veli imzası ve öğretmen gözetimi).</li>
+        <li>Derse başlamadan önce alıştırma sayfasındaki 6 adımı kendin bir kez dene.</li>
+      </ul>
+      <p class="note"><strong>Kimlere ders verilir?</strong> Kodlamayla daha önce hiç tanışmamış herkese. Tanımadığın birinin evine yalnız gitme; dersi aile içinde, tanıdıklarla ya da okul, kütüphane, muhtarlık gibi ortak alanlarda yap. Çocuklarla ders yalnızca okulda, öğretmen gözetiminde ve veli izniyle yapılır.</p>
+    </section>
+
+    <section id="plan">
+      <h2>2. Ders planı (60 dakika)</h2>
+      <table class="plan">
+        <thead><tr><th>Süre</th><th>Bölüm</th><th>Ne yapılır?</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>0–10 dk</td>
+            <td><strong>Tanışma ve hikâye</strong></td>
+            <td>Öğrenciye bilgisayarla ilgili deneyimini sor. 1928'i anlat: "O gün bir millet yeni harflerle buluştu; milyonlarca kişi yetişkin yaşta okumayı öğrendi. Bugün biz de bilgisayarın harflerini öğreneceğiz." Kaygısını dinle, "burada yanlış yapmak serbest" de.</td>
+          </tr>
+          <tr>
+            <td>10–20 dk</td>
+            <td><strong>Komut nedir?</strong></td>
+            <td>Bilgisayarın yalnızca söyleneni yaptığını anlat: "Ona tarif verir gibi konuşuruz." Alıştırma sayfasını aç, yazı kutusunu, <em>Çalıştır</em> düğmesini ve çıktı alanını göster. Gerekirse A+ ile yazıyı büyüt. Klavyede tırnak ( ' ) ve parantez tuşlarını birlikte bul.</td>
+          </tr>
+          <tr>
+            <td>20–35 dk</td>
+            <td><strong>İlk satır</strong><br><span class="muted">Adım 1–2</span></td>
+            <td>Öğrenci <code>print('Yaşasın Cumhuriyet')</code> satırını çalıştırır. Bu anı kutla! Sonra tırnak içini kendi cümlesiyle değiştirir. Hata çıkarsa sayfadaki 💡 ipucunu birlikte oku; hatayı sen düzeltme, öğrenci bulsun.</td>
+          </tr>
+          <tr>
+            <td>35–50 dk</td>
+            <td><strong>Oyun zamanı</strong><br><span class="muted">Adım 3–5</span></td>
+            <td>Hesap (1923 + 103), kutu (adını bir kutuya koymak) ve tekrar (bir cümleyi 10 kez yazdırmak). Öğrenci sayıları ve yazıları değiştirerek denesin. Dersi öğrencinin merakı yönlendirsin; adımları atlamak serbest.</td>
+          </tr>
+          <tr>
+            <td>50–60 dk</td>
+            <td><strong>Kapanış</strong><br><span class="muted">Adım 6</span></td>
+            <td>Cumhuriyet'in yaşını bilgisayara hesaplatın. Öğrenciye bugün ne yaptığını kendi sözleriyle anlattır. Ona ilk satırının bayrakta altın piksel olacağını söyle ve birlikte <em>Dersimi bildir</em> düğmesine bas.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="gruplar">
+      <h2>3. Öğrenciye göre ipuçları</h2>
+      <div class="cols">
+        <div>
+          <h3>Çocuklar</h3>
+          <ul>
+            <li>Ders okulda, öğretmen gözetiminde ve veli izniyle yapılır.</li>
+            <li>Kısa tut, oyunlaştır: "Bilgisayara adını 100 kez söylet!"</li>
+            <li>Yüz, okul adı veya ekran görüntüsü paylaşma.</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Yetişkinler</h3>
+          <ul>
+            <li>Günlük hayattan örnekler ver: "Bankadaki uygulama da böyle satırlardan oluşur."</li>
+            <li>Merak ettiği bir hesabı yaptır: yaşı, kira artışı, kalan gün sayısı.</li>
+            <li>İsterse bir sonraki adım için ücretsiz kaynak öner.</li>
+          </ul>
+        </div>
+        <div>
+          <h3>65 yaş ve üzeri</h3>
+          <ul>
+            <li>Yazıyı A+ ile büyüt, ekranı göz hizasına getir, acele etme.</li>
+            <li>Fare ya da dokunmatik ekran yerine klavyeyle ilerle; tuşları birlikte bul.</li>
+            <li>Bir hikâyesiyle bağ kur: "Siz okula başladığınızda harfleri nasıl öğrenmiştiniz?"</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="rehber">
+      <h2>4. Gönüllü rehberi</h2>
+      <h3>Altın kurallar</h3>
+      <ol>
+        <li><strong>Klavye öğrencide kalır.</strong> Sen göster, o yazsın. Kendi yazdığı satır ona aittir.</li>
+        <li><strong>Hata, ipucudur.</strong> Kırmızı yazı başarısızlık değil; bilgisayarın "şunu anlamadım" demesidir.</li>
+        <li><strong>Teknik terim yok.</strong> Aşağıdaki sade karşılıkları kullan.</li>
+        <li><strong>Her çalışan satırı kutla.</strong> İlk satır küçük bir adım ama büyük bir an.</li>
+        <li><strong>Mahremiyete saygı.</strong> Fotoğraf çekme, öğrencinin adını hiçbir yerde paylaşma.</li>
+      </ol>
+
+      <h3>Sade sözlük</h3>
+      <table class="glossary">
+        <tbody>
+          <tr><td><code>print</code></td><td>"ekrana yaz" komutu</td></tr>
+          <tr><td>Kod / program</td><td>bilgisayara verilen tarif</td></tr>
+          <tr><td>Değişken</td><td>üstüne ad yazılmış bir kutu</td></tr>
+          <tr><td>Döngü (<code>for</code>)</td><td>"şunu şu kadar kez yap"</td></tr>
+          <tr><td>Hata mesajı</td><td>bilgisayarın "anlamadım" demesi</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Öğrenci şunu derse…</h3>
+      <dl class="faq">
+        <dt>"Bu yaştan sonra öğrenemem."</dt>
+        <dd>"1929'da Millet Mektepleri'nde 60 yaşında okumayı öğrenenler vardı. Bugün sadece tek bir satır yazacağız; birlikte deneyelim."</dd>
+        <dt>"Bozarsam ne olur?"</dt>
+        <dd>"Bu sayfada hiçbir şey bozulmaz. En kötü ihtimalle bilgisayar 'anlamadım' der, biz de düzeltiriz."</dd>
+        <dt>"Matematiğim kötü."</dt>
+        <dd>"Kod yazmak hesap yapmaktan çok tarif vermeye benzer. Yemek tarifi yazabilen kod da yazabilir."</dd>
+        <dt>"Bu ne işime yarar?"</dt>
+        <dd>"Telefonundaki her uygulama böyle satırlardan yapılır. Bugün o dünyanın kapısını aralıyoruz."</dd>
+      </dl>
+    </section>
+
+    <section id="bildir">
+      <h2>5. Dersi bildirme</h2>
+      <ol>
+        <li>Alıştırma sayfasının altındaki <strong>Dersimi bildir</strong> düğmesine bas. Form, "Ders" seçeneği ve kutudaki ilk satır dolu olarak açılır.</li>
+        <li>Kendi rumuzunu, ilini ve öğrencinin yaş grubunu seç. <strong>Öğrencinin adını yazma.</strong></li>
+        <li>Gönder. Moderatör onayından sonra öğrencinin ilk satırı bayrakta <strong>altın piksel</strong> olarak yanar.</li>
+      </ol>
+      <p>GitHub hesabın varsa kampanya sayfasındaki <em>Dersimi bildir</em> bağlantısıyla GitHub formunu da kullanabilirsin.</p>
+    </section>
+
+    <section id="ek-a" class="form-page">
+      <h2>Ek A. Yetişkin katılımcı onay metni</h2>
+      <p class="muted">Taslak metindir. Bu form kampanyaya gönderilmez; gönüllüde veya katılımcıda kalır.</p>
+      <p>Cumhuriyet'e Commit kampanyası kapsamındaki Millet Mektebi 2.0 dersine gönüllü olarak katılıyorum. Bu derste:</p>
+      <ul>
+        <li>Fotoğrafımın veya videomun çekilmeyeceğini,</li>
+        <li>Adımın hiçbir yerde paylaşılmayacağını,</li>
+        <li>Yalnızca yazdığım ilk kod satırının ve yaş grubumun (yetişkin / 65 yaş ve üzeri) adım olmadan kampanya sitesinde yayımlanabileceğini,</li>
+        <li>Dilediğim an dersi bırakabileceğimi ve satırımın kaldırılmasını isteyebileceğimi</li>
+      </ul>
+      <p>biliyor ve kabul ediyorum.</p>
+      <div class="sign">
+        <div><span>Katılımcının adı soyadı</span></div>
+        <div><span>İmza</span></div>
+        <div><span>Tarih</span></div>
+      </div>
+      <div class="sign">
+        <div><span>Gönüllünün rumuzu</span></div>
+        <div><span>İmza</span></div>
+        <div><span>Yer (il / ilçe)</span></div>
+      </div>
+    </section>
+
+    <section id="ek-b" class="form-page">
+      <h2>Ek B. Veli izin formu</h2>
+      <p class="muted">Taslak metindir; okul yönetimiyle birlikte gözden geçirilmelidir. Bu form kampanyaya gönderilmez; okulda veya velide kalır. Ders yalnızca okulda ve öğretmen gözetiminde yapılır.</p>
+      <p>Velisi bulunduğum öğrencinin, Cumhuriyet'e Commit kampanyası kapsamındaki Millet Mektebi 2.0 dersine öğretmen gözetiminde katılmasına izin veriyorum. Bu derste:</p>
+      <ul>
+        <li>Çocuğumun fotoğrafının, videosunun veya yüzünün paylaşılmayacağını,</li>
+        <li>Adının ve okulunun adının hiçbir yerde paylaşılmayacağını,</li>
+        <li>Yalnızca yazdığı ilk kod satırının "çocuk" yaş grubu bilgisiyle, adı olmadan kampanya sitesinde yayımlanabileceğini,</li>
+        <li>İznimi dilediğim an geri alabileceğimi ve satırın kaldırılmasını isteyebileceğimi</li>
+      </ul>
+      <p>biliyor ve kabul ediyorum.</p>
+      <div class="sign">
+        <div><span>Öğrencinin adı soyadı</span></div>
+        <div><span>Sınıfı</span></div>
+        <div><span>Tarih</span></div>
+      </div>
+      <div class="sign">
+        <div><span>Velinin adı soyadı</span></div>
+        <div><span>İmza</span></div>
+        <div><span>Telefon (yalnızca okul için)</span></div>
+      </div>
+      <div class="sign">
+        <div><span>Gözetmen öğretmen</span></div>
+        <div><span>İmza</span></div>
+        <div><span>Gönüllünün rumuzu</span></div>
+      </div>
+    </section>
+
+    <footer class="kit-foot">
+      <p>Cumhuriyet'e Commit · Millet Mektebi 2.0 · mirzad06.github.io/cumhuriyete-commit</p>
+    </footer>
+  </main>
+</body>
+</html>

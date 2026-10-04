@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>İlk Satır — Millet Mektebi 2.0 alıştırma sayfası</title>
+  <meta name="description" content="Kurulum gerektirmeden tarayıcıda ilk Python satırını yaz: print('Yaşasın Cumhuriyet').">
+  <meta name="theme-color" content="#0d1117">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3Crect width='3' height='2' fill='%23E30A17'/%3E%3Ccircle cx='1' cy='1' r='.5' fill='%23fff'/%3E%3Ccircle cx='1.12' cy='1' r='.4' fill='%23E30A17'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="assets/style.css">
+  <link rel="stylesheet" href="assets/ilk-satir.css">
+</head>
+<body>
+  <header class="top">
+    <a class="brand" href="./"><span class="prompt">$</span> git commit -m "Cumhuriyet"</a>
+    <nav>
+      <a href="./#millet-mektebi">Millet Mektebi 2.0</a>
+      <a href="ders-kiti.html">Ders kiti</a>
+    </nav>
+  </header>
+
+  <main class="practice">
+    <section class="intro">
+      <p class="eyebrow">Millet Mektebi 2.0 · alıştırma sayfası</p>
+      <h1>İlk satırını yaz.</h1>
+      <p class="lead">Hiçbir şey kurmana gerek yok. Aşağıdaki kutuya yaz, <strong>Çalıştır</strong>'a bas, bilgisayar söylediğini yapsın.</p>
+      <div class="font-tools" role="group" aria-label="Yazı boyutu">
+        <button type="button" id="font-down" aria-label="Yazıyı küçült">A−</button>
+        <button type="button" id="font-up" aria-label="Yazıyı büyüt">A+</button>
+      </div>
+    </section>
+
+    <ol class="lessons" id="lessons" aria-label="Alıştırma adımları"></ol>
+
+    <section class="workspace">
+      <div class="step-text" id="step-text" aria-live="polite"></div>
+
+      <label class="sr" for="code">Python kodu</label>
+      <textarea id="code" spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off" rows="5"></textarea>
+
+      <div class="run-row">
+        <button type="button" class="btn primary big" id="run" disabled>▶ Çalıştır</button>
+        <span class="status" id="status">Python hazırlanıyor… (ilk açılışta biraz sürebilir)</span>
+      </div>
+
+      <div class="output" id="output" role="log" aria-live="polite" aria-label="Çıktı"></div>
+      <div class="hint" id="hint" hidden></div>
+
+      <div class="nav-row">
+        <button type="button" class="btn" id="prev">← Önceki adım</button>
+        <button type="button" class="btn" id="next">Sonraki adım →</button>
+      </div>
+    </section>
+
+    <section class="report">
+      <h2>Ders bitti mi?</h2>
+      <p>Gönüllü olarak bu düğmeye bas: Google Form, kutudaki ilk satır ve "Ders" seçeneği dolu olarak açılır. Rumuzunu, ilini ve öğrenci grubunu ekleyip gönder; onaydan sonra bayrakta <strong class="gold-text">altın piksel</strong> yanar.</p>
+      <a class="btn gold" id="report" href="#" target="_blank" rel="noopener">Dersimi bildir</a>
+      <p class="small-note">Bu sayfada yazılan kod yalnızca senin tarayıcında çalışır; hiçbir yere gönderilmez.</p>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <p><a href="./">Cumhuriyet'e Commit</a> · <a href="ders-kiti.html">Ders kiti</a> · <a href="gizlilik.html">Gizlilik</a></p>
+  </footer>
+
+  <script type="module" src="assets/ilk-satir.js"></script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+.practice { --size: 1.25rem; max-width: 900px; margin: 0 auto; padding: 2rem clamp(1rem, 4vw, 2rem) 3rem; }
+.practice .intro { position: relative; }
+.practice h1 { font-size: clamp(2rem, 5vw, 3rem); margin: 0 0 .5rem; }
+.practice .lead { margin: 0 0 1.5rem; color: #c9d1d9; font-size: 1.15rem; }
+
+.font-tools { position: absolute; right: 0; top: 0; display: flex; gap: .4rem; }
+.font-tools button {
+  min-width: 3rem; min-height: 3rem; border-radius: 8px; border: 1px solid var(--line);
+  background: var(--bg-2); color: var(--text); font: 700 1.1rem var(--sans); cursor: pointer;
+}
+
+.lessons { list-style: none; display: flex; flex-wrap: wrap; gap: .5rem; padding: 0; margin: 0 0 1.25rem; }
+.lessons button {
+  padding: .55rem .9rem; border-radius: 999px; border: 1px solid var(--line);
+  background: var(--bg-2); color: var(--muted); font: 600 .95rem var(--sans); cursor: pointer;
+}
+.lessons button[aria-current="step"] { border-color: var(--red); color: var(--text); background: rgba(227, 10, 23, .15); }
+.lessons button.done::after { content: " ✓"; color: #3fb950; }
+
+.workspace { border: 1px solid var(--line); border-radius: 14px; background: var(--bg-2); padding: clamp(1rem, 3vw, 1.5rem); }
+.step-text { font-size: calc(var(--size) * .9); line-height: 1.6; margin-bottom: 1rem; color: #e6edf3; }
+.step-text h2 { font-size: calc(var(--size) * 1.15); margin: 0 0 .35rem; }
+.step-text p { margin: .35rem 0; }
+
+#code {
+  display: block; width: 100%; min-height: 8rem; resize: vertical;
+  padding: 1rem; border-radius: 10px; border: 2px solid var(--line);
+  background: #010409; color: #e6edf3; caret-color: var(--red-soft);
+  font: var(--size)/1.6 var(--mono); tab-size: 4;
+}
+#code:focus { outline: none; border-color: var(--red-soft); }
+
+.run-row { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; margin: 1rem 0; }
+.btn.big { font-size: 1.2rem; padding: .85rem 1.75rem; border: 0; cursor: pointer; }
+.btn.big:disabled { opacity: .5; cursor: wait; }
+.status { color: var(--muted); font-size: .95rem; }
+
+.output {
+  min-height: 4.5rem; max-height: 22rem; overflow: auto; white-space: pre-wrap; word-break: break-word;
+  padding: 1rem; border-radius: 10px; background: #010409; border: 1px solid var(--line);
+  font: var(--size)/1.6 var(--mono); color: #7ee787;
+}
+.output:empty::before { content: "Çıktı burada görünecek."; color: var(--muted); font-family: var(--sans); font-size: 1rem; }
+.output .err { color: #ff7b72; }
+
+.hint {
+  margin-top: .75rem; padding: .85rem 1rem; border-radius: 10px;
+  background: rgba(242, 193, 78, .12); border: 1px solid rgba(242, 193, 78, .45); color: #f8e3a3;
+  font-size: calc(var(--size) * .85);
+}
+
+.nav-row { display: flex; justify-content: space-between; gap: .75rem; margin-top: 1.25rem; }
+.nav-row .btn { cursor: pointer; font: 600 1rem var(--sans); }
+
+.report { margin-top: 2.5rem; }
+.report h2 { font-size: 1.5rem; }
+.report p { color: #c9d1d9; }
+.small-note { font-size: .85rem; color: var(--muted) !important; }
+
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+
+@media (max-width: 600px) {
+  .font-tools { position: static; margin-bottom: 1rem; }
+}

@@ -1,0 +1,76 @@
+:root {
+  --red: #e30a17;
+  --gold: #b8860b;
+  --text: #1f2328;
+  --muted: #59636e;
+  --line: #d0d7de;
+  --paper: #ffffff;
+  --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --mono: ui-monospace, "Cascadia Code", Consolas, monospace;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; background: #f6f8fa; color: var(--text); font: 16px/1.65 var(--sans); }
+code { font-family: var(--mono); background: #eff1f3; padding: 0 .3em; border-radius: 4px; font-size: .92em; }
+
+.toolbar {
+  position: sticky; top: 0; z-index: 2; display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;
+  padding: .7rem clamp(1rem, 4vw, 2rem); background: #0d1117; color: #e6edf3;
+}
+.toolbar a { color: #e6edf3; text-decoration: none; font-size: .95rem; }
+.toolbar button {
+  margin-left: auto; padding: .5rem 1rem; border: 0; border-radius: 6px;
+  background: var(--red); color: #fff; font: 600 .95rem var(--sans); cursor: pointer;
+}
+
+.kit { max-width: 860px; margin: 1.5rem auto 3rem; padding: clamp(1.25rem, 5vw, 3rem); background: var(--paper); border: 1px solid var(--line); border-radius: 12px; }
+
+.cover { border-bottom: 3px solid var(--red); padding-bottom: 1.5rem; margin-bottom: 1.5rem; }
+.kicker { margin: 0; color: var(--red); font-weight: 700; letter-spacing: .02em; }
+.cover h1 { font-size: clamp(2.2rem, 6vw, 3.2rem); margin: .2rem 0 0; line-height: 1.1; }
+.subtitle { font-size: 1.2rem; color: var(--muted); margin: .4rem 0 1.25rem; }
+blockquote { margin: 0 0 1.25rem; padding: .6rem 1rem; border-left: 4px solid var(--red); background: #fff5f5; font-size: 1.1rem; font-style: italic; }
+blockquote cite { display: block; margin-top: .3rem; font-size: .85rem; font-style: normal; color: var(--muted); }
+.toc { display: flex; flex-wrap: wrap; gap: .4rem .9rem; }
+.toc a { color: var(--red); font-size: .92rem; }
+
+h2 { font-size: 1.5rem; margin: 2.25rem 0 .75rem; padding-bottom: .3rem; border-bottom: 1px solid var(--line); }
+h3 { font-size: 1.1rem; margin: 1.25rem 0 .5rem; }
+.muted { color: var(--muted); font-size: .9rem; }
+
+.checklist { list-style: none; padding: 0; }
+.checklist li { position: relative; padding-left: 1.9rem; margin: .4rem 0; }
+.checklist li::before { content: ""; position: absolute; left: 0; top: .3rem; width: 1.1rem; height: 1.1rem; border: 2px solid var(--muted); border-radius: 3px; }
+.note { padding: .85rem 1rem; border-radius: 8px; background: #fff8e6; border: 1px solid #f0d58c; }
+
+table { width: 100%; border-collapse: collapse; margin: .5rem 0 1rem; }
+th, td { border: 1px solid var(--line); padding: .6rem .7rem; vertical-align: top; text-align: left; }
+th { background: #f6f8fa; }
+.plan td:first-child { white-space: nowrap; font-weight: 700; color: var(--red); width: 5.5rem; }
+.plan td:nth-child(2) { width: 9.5rem; }
+.glossary td:first-child { width: 11rem; font-weight: 600; }
+
+.cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
+.cols > div { border: 1px solid var(--line); border-radius: 8px; padding: .25rem 1rem .5rem; }
+.cols ul { padding-left: 1.1rem; margin: .25rem 0; }
+
+.faq dt { font-weight: 700; margin-top: .8rem; }
+.faq dd { margin: .2rem 0 0 1rem; color: #31363b; }
+
+.form-page { margin-top: 2.5rem; padding-top: .5rem; }
+.sign { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-top: 2.25rem; }
+.sign div { border-top: 1px solid var(--text); padding-top: .3rem; }
+.sign span { font-size: .85rem; color: var(--muted); }
+
+.kit-foot { margin-top: 2.5rem; padding-top: 1rem; border-top: 1px solid var(--line); text-align: center; color: var(--muted); font-size: .85rem; }
+
+@media print {
+  @page { size: A4; margin: 16mm 15mm; }
+  body { background: #fff; font-size: 11pt; }
+  .no-print { display: none !important; }
+  .kit { margin: 0; padding: 0; border: 0; max-width: none; }
+  h2 { break-after: avoid; }
+  table, .cols > div, .faq dd, .note { break-inside: avoid; }
+  #plan, #rehber, .form-page { break-before: page; }
+  a { color: inherit; text-decoration: none; }
+}
