@@ -1,5 +1,6 @@
 import { CONFIG } from './config.js';
 import { buildLayout, COLS, ROWS, POOL_COUNT, FINAL_COUNT, HISTORY_COUNT } from './flag.js';
+import { celebrate } from './celebrate.js';
 
 const COLOR = {
   red: '#e30a17',
@@ -15,6 +16,7 @@ const COLOR = {
 };
 const TOTAL = COLS * ROWS;
 const LOG_PAGE = 50;
+const CELEBRATION_WINDOW_MS = 5 * 60 * 60 * 1000;
 
 const params = new URLSearchParams(location.search);
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -135,15 +137,11 @@ function draw(now = performance.now()) {
     if (info?.kind === 'history') {
       const mark = cell.white ? COLOR.historyFrameOnWhite : COLOR.historyFrameOnRed;
       const size = cellSize - gap;
-      if (cellSize >= 8) {
-        const lw = Math.max(1.5, cellSize / 9);
-        ctx.strokeStyle = mark;
-        ctx.lineWidth = lw;
-        ctx.strokeRect(cell.x * cellSize + lw / 2 + 1, cell.y * cellSize + lw / 2 + 1, size - lw - 2, size - lw - 2);
-      }
-      const dot = Math.max(1.5, size / 4);
-      ctx.fillStyle = mark;
-      ctx.fillRect(cell.x * cellSize + (size - dot) / 2, cell.y * cellSize + (size - dot) / 2, dot, dot);
+      const lw = cellSize >= 8 ? Math.max(1.5, cellSize / 9) : 1;
+      const inset = cellSize >= 8 ? 1 : 0;
+      ctx.strokeStyle = mark;
+      ctx.lineWidth = lw;
+      ctx.strokeRect(cell.x * cellSize + lw / 2 + inset, cell.y * cellSize + lw / 2 + inset, size - lw - 2 * inset, size - lw - 2 * inset);
     }
   }
   ctx.globalAlpha = 1;
@@ -437,6 +435,7 @@ function startFinal() {
   if (reducedMotion) {
     finalLitCount = FINAL_COUNT;
     finishFinal();
+    celebrate({ reducedMotion });
     return;
   }
   finalAnimating = true;
@@ -455,6 +454,7 @@ function startFinal() {
       finalAnimating = false;
       setTimeout(() => (overlay.hidden = true), 2500);
       finishFinal();
+      setTimeout(() => celebrate({ reducedMotion }), 600);
     }
   };
   requestAnimationFrame(tick);
@@ -464,6 +464,7 @@ function finishFinal() {
   updateStats();
   draw();
   $('countdown-time').textContent = 'Bayrak tamamlandı. Sıradaki satır bizden.';
+  $('celebrate-again').hidden = false;
 }
 
 function tickCountdown() {
@@ -514,7 +515,11 @@ async function init() {
   updateStats();
   resize();
 
-  if (finalLitCount >= FINAL_COUNT) finishFinal();
+  $('celebrate-again').addEventListener('click', () => celebrate({ reducedMotion }));
+  if (finalLitCount >= FINAL_COUNT) {
+    finishFinal();
+    if (Date.now() < finalTime + CELEBRATION_WINDOW_MS) setTimeout(() => celebrate({ reducedMotion }), 800);
+  }
   tickCountdown();
   setInterval(tickCountdown, 1000);
   requestAnimationFrame(animatePulse);
