@@ -5,6 +5,10 @@ const COLOR = {
   red: '#e30a17',
   white: '#ffffff',
   gold: '#f2c14e',
+  historyRed: '#a3121b',
+  historyWhite: '#cbbf9f',
+  historyFrameOnRed: 'rgba(255, 236, 205, 0.7)',
+  historyFrameOnWhite: 'rgba(140, 11, 19, 0.7)',
   emptyRed: 'rgba(227, 10, 23, 0.17)',
   emptyWhite: 'rgba(255, 255, 255, 0.13)',
   hover: '#58a6ff',
@@ -94,6 +98,7 @@ function assignCells(history) {
 function cellColor(cell, info, pulse) {
   if (!info) return cell.white ? COLOR.emptyWhite : COLOR.emptyRed;
   if (info.kind === 'ders') return COLOR.gold;
+  if (info.kind === 'history') return cell.white ? COLOR.historyWhite : COLOR.historyRed;
   if (info.kind === 'final') {
     if (info.order < finalLitCount) return COLOR.white;
     return `rgba(255, 255, 255, ${0.16 + 0.14 * pulse})`;
@@ -126,6 +131,11 @@ function draw(now = performance.now()) {
     if (info?.kind === 'ders' && cellSize >= 8) {
       ctx.fillStyle = 'rgba(255, 255, 255, 0.45)';
       ctx.fillRect(cell.x * cellSize + 1, cell.y * cellSize + 1, Math.max(2, cellSize / 4), Math.max(2, cellSize / 4));
+    }
+    if (info?.kind === 'history' && cellSize >= 8) {
+      ctx.strokeStyle = cell.white ? COLOR.historyFrameOnWhite : COLOR.historyFrameOnRed;
+      ctx.lineWidth = 1;
+      ctx.strokeRect(cell.x * cellSize + 1.5, cell.y * cellSize + 1.5, cellSize - gap - 3, cellSize - gap - 3);
     }
   }
   ctx.globalAlpha = 1;
@@ -169,6 +179,7 @@ function describe(info, cell) {
   } else if (info.kind === 'history') {
     line('t-msg', info.data.mesaj);
     line('t-meta', info.data.tarih.replaceAll('-', '.'));
+    line('t-meta', "Tarihî commit · Cumhuriyet'in sürüm geçmişi");
   } else if (info.kind === 'final') {
     if (info.order < finalLitCount) {
       line('t-msg', 'Ay-yıldız tamamlandı.');
