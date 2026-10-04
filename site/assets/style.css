@@ -150,8 +150,8 @@ main > section { padding: clamp(2.5rem, 6vw, 5rem) clamp(1rem, 4vw, 3rem); max-w
 .sw.red { background: var(--red); }
 .sw.gold { background: var(--gold); }
 .sw.history {
-  background: #6e0910;
-  box-shadow: inset 0 0 0 1px #6e0910, inset 0 0 0 2.5px #f3dfb8;
+  background: var(--red);
+  box-shadow: inset 0 0 0 1.5px var(--red), inset 0 0 0 2.5px rgba(255, 236, 205, .75);
 }
 .sw.reserved { background: rgba(255, 255, 255, .25); outline: 1px dashed rgba(255, 255, 255, .7); outline-offset: 1px; }
 .sw.empty { background: rgba(227, 10, 23, .2); }
