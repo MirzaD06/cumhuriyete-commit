@@ -5,10 +5,10 @@ const COLOR = {
   red: '#e30a17',
   white: '#ffffff',
   gold: '#f2c14e',
-  historyRed: '#a3121b',
-  historyWhite: '#cbbf9f',
-  historyFrameOnRed: 'rgba(255, 236, 205, 0.7)',
-  historyFrameOnWhite: 'rgba(140, 11, 19, 0.7)',
+  historyRed: '#6e0910',
+  historyWhite: '#b9ab86',
+  historyFrameOnRed: '#f3dfb8',
+  historyFrameOnWhite: '#6e0910',
   emptyRed: 'rgba(227, 10, 23, 0.17)',
   emptyWhite: 'rgba(255, 255, 255, 0.13)',
   hover: '#58a6ff',
@@ -132,10 +132,18 @@ function draw(now = performance.now()) {
       ctx.fillStyle = 'rgba(255, 255, 255, 0.45)';
       ctx.fillRect(cell.x * cellSize + 1, cell.y * cellSize + 1, Math.max(2, cellSize / 4), Math.max(2, cellSize / 4));
     }
-    if (info?.kind === 'history' && cellSize >= 8) {
-      ctx.strokeStyle = cell.white ? COLOR.historyFrameOnWhite : COLOR.historyFrameOnRed;
-      ctx.lineWidth = 1;
-      ctx.strokeRect(cell.x * cellSize + 1.5, cell.y * cellSize + 1.5, cellSize - gap - 3, cellSize - gap - 3);
+    if (info?.kind === 'history') {
+      const mark = cell.white ? COLOR.historyFrameOnWhite : COLOR.historyFrameOnRed;
+      const size = cellSize - gap;
+      if (cellSize >= 8) {
+        const lw = Math.max(1.5, cellSize / 9);
+        ctx.strokeStyle = mark;
+        ctx.lineWidth = lw;
+        ctx.strokeRect(cell.x * cellSize + lw / 2 + 1, cell.y * cellSize + lw / 2 + 1, size - lw - 2, size - lw - 2);
+      }
+      const dot = Math.max(1.5, size / 4);
+      ctx.fillStyle = mark;
+      ctx.fillRect(cell.x * cellSize + (size - dot) / 2, cell.y * cellSize + (size - dot) / 2, dot, dot);
     }
   }
   ctx.globalAlpha = 1;
