@@ -29,6 +29,7 @@ let finalTime = new Date(CONFIG.finalTime).getTime();
 let finalLitCount = 0;
 let finalAnimating = false;
 let hoverIndex = -1;
+const highlight = new Set();
 let cellSize = 0;
 let gap = 1;
 
@@ -61,6 +62,7 @@ function demoEntries(n) {
       mesaj: ders ? "print('Yaşasın Cumhuriyet')" : pick(msgs, i + 1),
       tur: ders ? 'ders' : 'commit',
       ogrenciGrubu: ders ? '65+' : undefined,
+      no: i + 1,
       t: new Date(Date.UTC(2026, 9, 19) + i * 60000 * 7).toISOString(),
     };
   });
@@ -115,14 +117,30 @@ function resize() {
 function draw(now = performance.now()) {
   const pulse = reducedMotion ? 0.5 : (Math.sin(now / 600) + 1) / 2;
   ctx.clearRect(0, 0, COLS * cellSize, ROWS * cellSize);
+  const dim = highlight.size > 0;
   for (const cell of layout.cells) {
     const info = cellInfo.get(cell.index);
+    ctx.globalAlpha = dim && !highlight.has(cell.index) ? 0.25 : 1;
     ctx.fillStyle = cellColor(cell, info, pulse);
     ctx.fillRect(cell.x * cellSize, cell.y * cellSize, cellSize - gap, cellSize - gap);
     if (info?.kind === 'ders' && cellSize >= 8) {
       ctx.fillStyle = 'rgba(255, 255, 255, 0.45)';
       ctx.fillRect(cell.x * cellSize + 1, cell.y * cellSize + 1, Math.max(2, cellSize / 4), Math.max(2, cellSize / 4));
     }
+  }
+  ctx.globalAlpha = 1;
+  for (const index of highlight) {
+    const c = layout.cells[index];
+    const cx = (c.x + 0.5) * cellSize;
+    const cy = (c.y + 0.5) * cellSize;
+    ctx.strokeStyle = COLOR.hover;
+    ctx.lineWidth = 2;
+    ctx.strokeRect(c.x * cellSize - 1, c.y * cellSize - 1, cellSize - gap + 2, cellSize - gap + 2);
+    ctx.globalAlpha = 1 - pulse * 0.8;
+    ctx.beginPath();
+    ctx.arc(cx, cy, Math.max(cellSize * 1.2, 8) + pulse * Math.max(cellSize, 8), 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.globalAlpha = 1;
   }
   if (hoverIndex >= 0) {
     const c = layout.cells[hoverIndex];
@@ -133,7 +151,7 @@ function draw(now = performance.now()) {
 }
 
 function animatePulse(now) {
-  if (finalLitCount < FINAL_COUNT || finalAnimating) draw(now);
+  if (finalLitCount < FINAL_COUNT || finalAnimating || highlight.size) draw(now);
   requestAnimationFrame(animatePulse);
 }
 
@@ -201,6 +219,106 @@ function hideTooltip() {
   hoverIndex = -1;
   tooltip.hidden = true;
   draw();
+}
+
+function showCellTooltip(index) {
+  const rect = canvas.getBoundingClientRect();
+  const c = layout.cells[index];
+  hoverIndex = -1;
+  showTooltip({
+    clientX: rect.left + ((c.x + 0.5) / COLS) * rect.width,
+    clientY: rect.top + ((c.y + 0.5) / ROWS) * rect.height,
+  });
+}
+
+function matchCells(query) {
+  const num = query.match(/^#?(\d+)$/);
+  const q = query.toLocaleLowerCase('tr');
+  const participants = [...cellInfo.entries()].filter(([, info]) => info.kind === 'commit' || info.kind === 'ders');
+  if (num) return { found: participants.filter(([, info]) => info.data.no === Number(num[1])), partial: false };
+  const exact = participants.filter(([, info]) => info.data.rumuz.toLocaleLowerCase('tr') === q);
+  if (exact.length || q.length < 3) return { found: exact, partial: false };
+  return { found: participants.filter(([, info]) => info.data.rumuz.toLocaleLowerCase('tr').includes(q)), partial: true };
+}
+
+function setUrlQuery(key, value) {
+  const url = new URL(location.href);
+  url.searchParams.delete('piksel');
+  url.searchParams.delete('rumuz');
+  if (key) url.searchParams.set(key, value);
+  history.replaceState(null, '', url);
+}
+
+function findPixels(query, { scroll = true } = {}) {
+  const q = query.trim();
+  const result = $('finder-result');
+  highlight.clear();
+  hideTooltip();
+  result.className = 'finder-result';
+  $('finder-share').hidden = true;
+  $('finder-clear').hidden = !q;
+  if (!q) {
+    result.textContent = '';
+    setUrlQuery();
+    return;
+  }
+  const { found, partial } = matchCells(q);
+  if (!found.length) {
+    result.textContent =
+      'Bulunamadı. Katkın yeni onaylandıysa site birkaç dakika içinde güncellenir; rumuzunu formda yazdığın gibi dene.';
+    setUrlQuery();
+    draw();
+    return;
+  }
+  for (const [index] of found) highlight.add(index);
+  const first = found[0][1].data;
+  result.className = 'finder-result ok';
+  if (partial) {
+    result.textContent =
+      found.length === 1
+        ? `Tam eşleşme yok; en yakın rumuz: ${first.rumuz} · ${first.il}`
+        : `Tam eşleşme yok; "${q}" içeren ${fmt.format(found.length)} piksel bayrakta parlıyor.`;
+  } else {
+    result.textContent =
+      found.length === 1
+        ? `Buldum! Pikselin bayrakta parlıyor: ${first.rumuz} · ${first.il}`
+        : `${fmt.format(found.length)} pikselin bulundu, hepsi bayrakta parlıyor.`;
+  }
+  const single = found.length === 1 && found[0][1].data.no;
+  setUrlQuery(single ? 'piksel' : 'rumuz', single ? String(found[0][1].data.no) : q);
+  $('finder-share').hidden = false;
+  if (scroll) frame.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'center' });
+  showCellTooltip(found[0][0]);
+}
+
+async function copyShareLink() {
+  const btn = $('finder-share');
+  try {
+    await navigator.clipboard.writeText(location.href);
+    btn.textContent = 'Kopyalandı ✓';
+  } catch {
+    prompt('Bağlantıyı kopyala:', location.href);
+  }
+  setTimeout(() => (btn.textContent = 'Bağlantıyı kopyala'), 2000);
+}
+
+function wireFinder() {
+  const input = $('finder-input');
+  $('finder').addEventListener('submit', (e) => {
+    e.preventDefault();
+    findPixels(input.value);
+  });
+  $('finder-clear').addEventListener('click', () => {
+    input.value = '';
+    findPixels('');
+    input.focus();
+  });
+  $('finder-share').addEventListener('click', copyShareLink);
+  const initial = params.get('piksel') ? `#${params.get('piksel')}` : params.get('rumuz');
+  if (initial) {
+    input.value = initial;
+    requestAnimationFrame(() => findPixels(initial));
+  }
 }
 
 function setBar(id, value, goal) {
@@ -387,6 +505,7 @@ async function init() {
   canvas.addEventListener('click', showTooltip);
   $('log-more').addEventListener('click', renderMoreLog);
   new ResizeObserver(resize).observe(frame);
+  wireFinder();
 }
 
 init();

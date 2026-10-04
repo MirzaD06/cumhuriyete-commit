@@ -6,6 +6,7 @@ import { fileURLToPath } from 'node:url';
 import { validateEntry, cleanEntry } from './lib/validate.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const SITE_URL = 'https://mirzad06.github.io/cumhuriyete-commit/';
 
 const FIELD_BY_HEADING = {
   'Rumuz': 'rumuz',
@@ -68,6 +69,14 @@ function main() {
       '',
       write ? 'Katkın onaylandı ve mozaiğe eklendi. Teşekkürler! 🇹🇷' : 'Bir moderatör inceleyip onayladığında pikselin yanacak.',
     );
+    if (write && /^\d+$/.test(number ?? '')) {
+      lines.push(
+        '',
+        `📍 **Pikselin:** ${SITE_URL}?piksel=${number}`,
+        '',
+        'Site birkaç dakika içinde güncellenir. Bu bağlantıyı paylaşabilir ya da sitede "Pikselini bul" kutusuna rumuzunu veya `#' + number + '` yazabilirsin.',
+      );
+    }
   } else {
     lines.push('❌ Katkı şu haliyle eklenemiyor. Issue\'yu düzenleyerek (Edit) düzeltebilirsin:', '');
     for (const e of errors) lines.push(`- ${e}`);

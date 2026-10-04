@@ -52,6 +52,16 @@
           <span class="final-label">piksel kaldı</span>
         </div>
       </div>
+      <form class="finder" id="finder" role="search">
+        <label for="finder-input">Pikselini bul</label>
+        <div class="finder-row">
+          <input id="finder-input" type="search" placeholder="Rumuzun ya da katkı numaran (ör. #4)" autocomplete="off" maxlength="40">
+          <button class="btn primary" type="submit">Bul</button>
+          <button class="btn" type="button" id="finder-clear" hidden>Temizle</button>
+          <button class="btn" type="button" id="finder-share" hidden>Bağlantıyı kopyala</button>
+        </div>
+        <p class="finder-result" id="finder-result" aria-live="polite"></p>
+      </form>
       <ul class="legend">
         <li><i class="sw red"></i>Yanan piksel (commit)</li>
         <li><i class="sw gold"></i>Altın piksel (Millet Mektebi 2.0 dersi)</li>

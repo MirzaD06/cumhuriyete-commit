@@ -65,7 +65,8 @@ for (const file of files) {
     const key = `${entry.rumuz.trim().toLocaleLowerCase('tr')}|${entry.mesaj.trim().toLocaleLowerCase('tr')}`;
     if (seen.has(key)) warnings.push(`Aynı rumuz ve mesaj başka bir dosyada da var: ${seen.get(key)}`);
     else seen.set(key, rel);
-    entries.push({ ...cleanEntry(entry), t: addedAt(file), _file: rel });
+    const no = path.basename(file).match(/^issue-(\d+)\.json$/)?.[1];
+    entries.push({ ...cleanEntry(entry), ...(no && { no: Number(no) }), t: addedAt(file), _file: rel });
   }
   results.push({ rel, errors, warnings });
 }
