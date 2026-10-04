@@ -19,7 +19,7 @@ jobs:
       github.event.action != 'labeled' &&
       (contains(github.event.issue.labels.*.name, 'commit') || contains(github.event.issue.labels.*.name, 'ders')) &&
       !contains(github.event.issue.labels.*.name, 'eklendi')
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -54,7 +54,7 @@ jobs:
 
   ekle:
     if: github.event.action == 'labeled' && github.event.label.name == 'onaylandi'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     concurrency:
       group: commits-yaz
       cancel-in-progress: false
