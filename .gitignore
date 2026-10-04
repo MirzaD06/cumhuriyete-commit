@@ -1,0 +1,5 @@
+site/data/commits.json
+issue-report.md
+rapor.md
+*.csv
+node_modules/

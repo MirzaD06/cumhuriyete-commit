@@ -1,0 +1,46 @@
+name: PR katkı kontrolü
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  kontrol:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Testler
+        run: node --test scripts/*.test.mjs
+
+      - name: Değişen dosyaları kontrol et
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          changed=$(git diff --name-only --diff-filter=AM "$BASE_SHA"...HEAD)
+          commits=$(echo "$changed" | grep '^commits/.*\.json$' | paste -sd, - || true)
+          others=$(echo "$changed" | grep -v '^commits/' || true)
+
+          if [ -n "$commits" ]; then
+            node scripts/build.mjs --check --files "$commits" --report rapor.md
+          else
+            echo "Bu PR katkı dosyası içermiyor." > rapor.md
+          fi
+          cat rapor.md >> "$GITHUB_STEP_SUMMARY"
+
+          if [ -n "$others" ] && [ -n "$commits" ]; then
+            {
+              echo ""
+              echo "⚠️ Bu PR \`commits/\` dışındaki dosyaları da değiştiriyor; moderatör dikkatle incelemeli:"
+              echo "$others" | sed 's/^/- /'
+            } >> "$GITHUB_STEP_SUMMARY"
+          fi

@@ -1,0 +1,26 @@
+# Bu listedeki ifadeler katkıyı reddetmez; moderatörün elle incelemesi için işaretler.
+# Kampanya partiler üstüdür: parti, siyasetçi ve güncel siyasal çağrı içeren katkılar yayımlanmaz.
+akp
+ak parti
+chp
+mhp
+hdp
+dem parti
+iyi parti
+zafer partisi
+yeniden refah*
+saadet partisi
+deva partisi
+gelecek partisi
+erdoğan*
+kılıçdaroğlu*
+kilicdaroglu*
+imamoğlu*
+bahçeli*
+seçim*
+oy ver*
+istifa*
+darbe*
+hain*
+terör*
+şeriat*

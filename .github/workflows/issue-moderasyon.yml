@@ -1,0 +1,100 @@
+name: Issue moderasyonu
+
+on:
+  issues:
+    types: [opened, edited, labeled]
+
+permissions:
+  contents: write
+  issues: write
+  actions: write
+
+concurrency:
+  group: issue-${{ github.event.issue.number }}
+  cancel-in-progress: false
+
+jobs:
+  kontrol:
+    if: >-
+      github.event.action != 'labeled' &&
+      (contains(github.event.issue.labels.*.name, 'commit') || contains(github.event.issue.labels.*.name, 'ders')) &&
+      !contains(github.event.issue.labels.*.name, 'eklendi')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Doğrula
+        id: dogrula
+        continue-on-error: true
+        env:
+          ISSUE_BODY: ${{ github.event.issue.body }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          ISSUE_LABELS: ${{ join(github.event.issue.labels.*.name, ',') }}
+        run: node scripts/issue-to-commit.mjs
+
+      - name: Sonucu bildir
+        env:
+          GH_TOKEN: ${{ github.token }}
+          NUMBER: ${{ github.event.issue.number }}
+          VALID: ${{ steps.dogrula.outputs.valid }}
+          FLAGGED: ${{ steps.dogrula.outputs.flagged }}
+        run: |
+          gh issue comment "$NUMBER" --body-file issue-report.md --edit-last --create-if-none
+          if [ "$VALID" = "true" ]; then
+            gh issue edit "$NUMBER" --add-label incelemede --remove-label duzeltme-gerekli
+          else
+            gh issue edit "$NUMBER" --add-label duzeltme-gerekli --remove-label incelemede
+          fi
+          if [ "$FLAGGED" = "true" ]; then
+            gh issue edit "$NUMBER" --add-label hassas-icerik
+          fi
+
+  ekle:
+    if: github.event.action == 'labeled' && github.event.label.name == 'onaylandi'
+    runs-on: ubuntu-latest
+    concurrency:
+      group: commits-yaz
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Katkı dosyasını yaz
+        env:
+          ISSUE_BODY: ${{ github.event.issue.body }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          ISSUE_LABELS: ${{ join(github.event.issue.labels.*.name, ',') }}
+        run: node scripts/issue-to-commit.mjs --write
+
+      - name: Gönder
+        env:
+          NUMBER: ${{ github.event.issue.number }}
+          APPROVER: ${{ github.event.sender.login }}
+        run: |
+          git config user.name "cumhuriyete-commit-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "commits/issue-$NUMBER.json"
+          git commit -m "commit: issue #$NUMBER katkısı eklendi (onaylayan: $APPROVER)"
+          for i in 1 2 3; do
+            git pull --rebase origin main && git push origin HEAD:main && break
+            sleep 5
+          done
+
+      - name: Issue'yu kapat
+        env:
+          GH_TOKEN: ${{ github.token }}
+          NUMBER: ${{ github.event.issue.number }}
+        run: |
+          gh issue comment "$NUMBER" --body-file issue-report.md
+          gh issue edit "$NUMBER" --add-label eklendi --remove-label incelemede
+          gh issue close "$NUMBER" --reason completed
+
+      - name: Yayını tetikle
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run yayin.yml --ref main

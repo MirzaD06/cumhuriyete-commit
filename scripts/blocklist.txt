@@ -1,0 +1,46 @@
+# Bu listedeki ifadeler katkıyı otomatik olarak reddeder.
+# Satır sonundaki * önek eşleşmesi demektir (ör. "siktir*" → "siktirgit").
+# Eşleştirme küçük harf, Türkçe karakter ve leetspeak (0→o, 1→i, 3→e, 4→a) normalleştirmesinden sonra yapılır;
+# tekrar eden harfler teke indirilir ("siiiktir" → "siktir"). Moderatörler listeyi genişletebilir.
+amk
+amq
+aq
+amina*
+amına*
+amcik*
+amcık*
+orospu*
+pic
+pici
+picler*
+piclik*
+sik
+sikik*
+sikim*
+sikis*
+siktir*
+sikerim
+sikeyim
+yarak*
+yarrak*
+got
+gotu
+gotun*
+gotver*
+ibne*
+pezevenk*
+kahpe*
+kaltak*
+yavsak*
+pust*
+serefsiz*
+gerizekal*
+dangalak*
+fuck*
+shit*
+bitch*
+asshole*
+cunt*
+nigger*
+nigga*
+faggot*

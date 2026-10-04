@@ -1,0 +1,14 @@
+{
+  "name": "cumhuriyete-commit",
+  "private": true,
+  "type": "module",
+  "description": "29 Ekim için katılımcı piksel bayrak mozaiği: Cumhuriyet'e Commit",
+  "license": "MIT",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "check": "node scripts/build.mjs --check",
+    "test": "node --test scripts/*.test.mjs",
+    "serve": "node scripts/serve.mjs",
+    "templates": "node scripts/gen-issue-templates.mjs"
+  }
+}

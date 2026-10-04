@@ -1,0 +1,23 @@
+[
+  { "tarih": "1923-10-29", "mesaj": "init: Cumhuriyet ilan edildi" },
+  { "tarih": "1924-03-03", "mesaj": "feat: Tevhid-i Tedrisat — eğitimde birlik" },
+  { "tarih": "1924-04-20", "mesaj": "feat: Teşkilât-ı Esasiye Kanunu (1924 Anayasası)" },
+  { "tarih": "1925-11-05", "mesaj": "feat: Ankara Hukuk Mektebi açıldı" },
+  { "tarih": "1925-12-26", "mesaj": "feat: uluslararası takvim ve saat kabul edildi" },
+  { "tarih": "1926-02-17", "mesaj": "feat: Türk Medeni Kanunu" },
+  { "tarih": "1928-11-01", "mesaj": "feat: Türk harfleri kabul edildi" },
+  { "tarih": "1929-01-01", "mesaj": "feat: Millet Mektepleri açıldı" },
+  { "tarih": "1930-04-03", "mesaj": "feat: kadınlara belediye seçimlerinde seçme ve seçilme hakkı" },
+  { "tarih": "1931-04-15", "mesaj": "feat: Türk Tarihi Tetkik Cemiyeti kuruldu" },
+  { "tarih": "1932-07-12", "mesaj": "feat: Türk Dili Tetkik Cemiyeti kuruldu" },
+  { "tarih": "1933-11-18", "mesaj": "feat: İstanbul Üniversitesi açıldı" },
+  { "tarih": "1934-06-21", "mesaj": "feat: Soyadı Kanunu" },
+  { "tarih": "1934-12-05", "mesaj": "feat: kadınlara milletvekili seçme ve seçilme hakkı" },
+  { "tarih": "1935-02-08", "mesaj": "feat: Meclis'e ilk kez 18 kadın milletvekili seçildi" },
+  { "tarih": "1936-01-09", "mesaj": "feat: Dil ve Tarih-Coğrafya Fakültesi açıldı" },
+  { "tarih": "1940-04-17", "mesaj": "feat: Köy Enstitüleri" },
+  { "tarih": "1963-07-17", "mesaj": "feat: TÜBİTAK kuruldu" },
+  { "tarih": "1973-10-30", "mesaj": "feat: Boğaziçi Köprüsü — Cumhuriyet'in 50. yılı" },
+  { "tarih": "1993-04-12", "mesaj": "feat: Türkiye internete bağlandı" },
+  { "tarih": "2023-10-29", "mesaj": "release: v100.0 — Cumhuriyet'in 100. yılı" }
+]
